@@ -6,16 +6,16 @@ services:
     build:
       context: .
       dockerfile: config/dockerfile
-    image: christexe/php:7.4-fpm-alpine
+    image: php:7.4-fpm-alpine
     container_name: php_app
     restart: unless-stopped
     tty: true
     environment:
       SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www/html
+      SERVICE_TAGS: prod
+    working_dir: /var/www/crm
     volumes:
-      - ./code/:/var/www/html
+      - ./code/:/var/www/crm
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - labnet
@@ -27,9 +27,9 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
+      - "4301:80"
     volumes:
-      - ./code/:/var/www/html
+      - ./code/:/var/www/crm
       - ./config/conf.d/:/etc/nginx/conf.d/
     networks:
       - labnet
